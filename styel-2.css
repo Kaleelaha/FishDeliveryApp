@@ -1,0 +1,18 @@
+body{
+    background-color: plum;
+    width:100%;
+}
+
+#section1{
+    width:80%;
+    color:blue;
+    background-color: brown;
+}
+
+
+
+#section2{
+    width:50%;
+    color:blue;
+    background-color: brown;
+}

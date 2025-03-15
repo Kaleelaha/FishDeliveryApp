@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Place Order</title>
+    <link rel="stylesheet" href="Orderstyle.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Place Your Order</h1>
+		<form id="orderForm" action="Order confirmation.html" method="get">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            
+            <fieldset>
+                <legend>Select Products:</legend>
+                <div class="product">
+                    <label for="Redsnaper">
+                        <input type="checkbox" id="product1" name="products" value="Product 1" data-price="350">
+                        Redsnaper (Rs 350)
+                    </label>
+                    <label for="quantity1">Quantity:</label>
+                    <input type="number" id="quantity1" name="quantity1" min="1" max="10" value="0" disabled>
+                </div>
+                <div class="product">
+                    <label for="Vulii">
+                        <input type="checkbox" id="product2" name="products" value="Product 2" data-price="400">
+                        Vulii (Rs 400)
+                    </label>
+                    <label for="quantity2">Quantity:</label>
+                    <input type="number" id="quantity2" name="quantity2" min="1" max="10" value="0" disabled>
+                </div>
+                <div class="product">
+                    <label for="Catla">
+                        <input type="checkbox" id="product3" name="products" value="Product 3" data-price="250">
+                        catla (Rs250)
+                    </label>
+                    <label for="quantity3">Quantity:</label>
+                    <input type="number" id="quantity3" name="quantity3" min="1" max="10" value="0" disabled>
+                </div>
+				<div class="product">
+                    <label for="Kelanga">
+                        <input type="checkbox" id="product4" name="products" value="Product 4" data-price="250">
+                    Kelanga (Rs 250)
+                    </label>
+                    <label for="quantity4">Quantity:</label>
+                    <input type="number" id="quantity4" name="quantity4" min="1" max="10" value="0" disabled>
+                </div>
+				<div class="product">
+                    <label for="Crab">
+                        <input type="checkbox" id="product5" name="products" value="Product 5" data-price="350">
+                        crab(Rs 350)
+                    </label>
+                    <label for="quantity5">Quantity:</label>
+                    <input type="number" id="quantity5" name="quantity5" min="1" max="10" value="0" disabled>
+                </div>
+				<div class="product">
+                    <label for="Seer">
+                        <input type="checkbox" id="product6" name="products" value="Product 6" data-price="750">
+                        Seer (Rs 750)
+                    </label>
+                    <label for="quantity6">Quantity:</label>
+                    <input type="number" id="quantity6" name="quantity6" min="1" max="10" value="0" disabled>
+                </div>
+				<div class="product">
+                    <label for="Pura">
+                        <input type="checkbox" id="product7" name="products" value="Product 7" data-price="450">
+                        Pura(Rs 450)
+                    </label>
+                    <label for="quantity7">Quantity:</label>
+                    <input type="number" id="quantity7" name="quantity7" min="1" max="10" value="0" disabled>
+                </div>
+				<div class="product">
+                    <label for="Prawn">
+                        <input type="checkbox" id="product8" name="products" value="Product 8" data-price="450">
+                        Prawn (Rs 450)
+                    </label>
+                    <label for="quantity7">Quantity:</label>
+                    <input type="number" id="quantity7" name="quantity7" min="1" max="10" value="0" disabled>
+                </div>
+            </fieldset>
+            <button type="submit">DONE</button>
+        </form>
+    </div>
+
+    <script>
+        // Enable quantity input only when the corresponding product is checked
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const quantityInput = document.getElementById(`quantity${this.id.replace('product', '')}`);
+                quantityInput.disabled = !this.checked;
+            });
+        });
+
+        // Calculate total price and pass it as a query parameter
+        document.getElementById('orderForm').addEventListener('submit', function(event) {
+            let totalPrice = 0;
+            document.querySelectorAll('input[type="checkbox"]:checked').forEach(checkbox => {
+                const quantityInput = document.getElementById(`quantity${checkbox.id.replace('product', '')}`);
+                const price = parseFloat(checkbox.getAttribute('data-price'));
+                const quantity = parseInt(quantityInput.value);
+                totalPrice += price * quantity;
+            });
+            const totalPriceInput = document.createElement('input');
+            totalPriceInput.type = 'hidden';
+            totalPriceInput.name = 'totalPrice';
+            totalPriceInput.value = totalPrice.toFixed(2);
+            this.appendChild(totalPriceInput);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation</title>
+    <link rel="stylesheet" href="Orderstyle.css"
+</head>
+<body>
+    <div class="container">
+        <h1>PAYMENT!</h1>
+        <p>Fill in the detail to continue.</p>
+        <p id="orderDetails"></p>
+        <h3 id="totalPrice"></h3>
+		<a href="workspace.php" class="button">CONFIRM</a>
+    </div>
+    
+    <script>
+        // Parse the query parameters to get the selected products and quantities
+        const urlParams = new URLSearchParams(window.location.search);
+        const products = urlParams.getAll('products');
+        const quantities = products.map(product => urlParams.get(`quantity${product.replace('Product ', '')}`));
+        const totalPrice = urlParams.get('totalPrice');
+        
+        // Display the selected products and their quantities
+        const orderDetailsElement = document.getElementById('orderDetails');
+        if (products.length > 0) {
+            const orderDetails = products.map((product, index) => {
+                return `${product} (Quantity: ${quantities[index]})`;
+            }).join('<br>');
+            orderDetailsElement.innerHTML = `Selected Products:<br>${orderDetails}`;
+        } else {
+            orderDetailsElement.innerHTML = 'No products selected.';
+        }
+
+        // Display the total price
+        const totalPriceElement = document.getElementById('totalPrice');
+        totalPriceElement.innerHTML = `Total Price: $${totalPrice}`;
+    </script>
+</body>
+</html>
